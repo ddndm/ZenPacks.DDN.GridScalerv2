@@ -1,0 +1,93 @@
+/Storage/DDN/GridScalerv2/GS_ClientNode:
+    # Osp component level metrics definition
+    description: Performance Template for gathering metrics related to Gridscaler client nodes
+    targetPythonClass: ZenPacks.DDN.GridScalerv2.ClientNode
+
+    datasources:
+        device_state:
+            type: Python
+            cycletime: 600
+            plugin_classname: ZenPacks.DDN.GridScalerv2.dsplugin.GsCNMetricPlugin
+            component: ${here/id}
+            eventKey: /perf/Gridscaler-clientNode
+            eventClass: /Perf/GridScalerV2/CN
+            enabled: True
+            severity: Warning
+
+/Storage/DDN/GridScalerv2/GS_NsdDisk:
+    # Osp component level metrics definition
+    description: Performance Template for gathering metrics related to Gridscaler SFA nodes
+    targetPythonClass: ZenPacks.DDN.GridScalerv2.SfaNode
+
+    datasources:
+        device_state:
+            type: Python
+            cycletime: 600
+            plugin_classname: ZenPacks.DDN.GridScalerv2.dsplugin.GsSfaMetricPlugin
+            component: ${here/id}
+            eventKey: /perf/GridscalerSfa
+            eventClass: /Perf/GridScalerV2/SFA
+            enabled: True
+            severity: Warning
+
+/Storage/DDN/GridScalerv2/GS_NsdServer:
+    # Osp component level metrics definition
+    description: Performance Template for gathering metrics related to Gridscaler SFA nodes
+    targetPythonClass: ZenPacks.DDN.GridScalerv2.NsdNode
+
+    datasources:
+        device_state:
+            type: Python
+            cycletime: 600
+            plugin_classname: ZenPacks.DDN.GridScalerv2.dsplugin.GsNsdMetricPlugin
+            component: ${here/id}
+            eventKey: /perf/Gridscaler-nsd
+            eventClass: /Perf/GridScalerV2/NSD
+            enabled: True
+            severity: Warning
+
+
+/Storage/DDN/GridScalerv2/GS_FsList:
+    # Osp component level metrics definition
+    description: Performance Template for gathering metrics related to Gridscaler Filesystems
+    targetPythonClass: ZenPacks.DDN.GridScalerv2.FsList
+
+    datasources:
+        fs_counters:
+            type: Python
+            cycletime: 600
+            plugin_classname: ZenPacks.DDN.GridScalerv2.dsplugin.GsFSMetricPlugin
+            component: ${here/id}
+            eventKey: /perf/GridscalerFs
+            eventClass: /Perf/GridScalerV2/FSLIST
+            enabled: True
+            severity: Warning
+
+            datapoints:
+                totalAvailableInodes : GAUGE
+                totalFreeSpace : GAUGE
+                totalInodes: GAUGE
+                totalSpace : GAUGE
+                totalUsedInodes: GAUGE
+                totalUsedSpace : GAUGE
+
+    graphs:
+        FileSystemUsage:
+            units: memory usage in bytes
+            graphpoints:
+                fs_counters_totalUsedSpace:
+                    dpName: fs_counters_totalUsedSpace
+                fs_counters_totalSpace:
+                    dpName: fs_counters_totalSpace
+                fs_counters_totalFreeSpace:
+                    dpName: fs_counters_totalFreeSpace
+
+        InodeUsage:
+            units: number of operations per sec
+            graphpoints:
+                fs_counters_totalInodes:
+                    dpName: fs_counters_totalInodes
+                fs_counters_totalAvailableInodes:
+                    dpName: fs_counters_totalAvailableInodes
+                fs_counters_totalUsedInodes:
+                    dpName: fs_counters_totalUsedInodes
