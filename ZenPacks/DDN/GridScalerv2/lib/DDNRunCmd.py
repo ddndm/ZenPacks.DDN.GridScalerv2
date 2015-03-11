@@ -27,11 +27,11 @@ class Cmd():
         log.debug("XXXX cmd %s processCompleted with result %s",
                   self.command, pr)
         myresult = (pr.exitCode, pr.output, pr.stderr)
+        log.debug("XXXX actual output: %s", str(myresult))
 
         # on failure initialize result as a dict with {templateId:errmsg}
         if isinstance(pr, Failure):
             msg = str(self.template) + ":" + pr.getErrorMessage()
-            log.error("XXXX failure: %s", msg)
             self.result = Failure(msg)
             return pr
 
@@ -51,4 +51,3 @@ class Cmd():
             self.config,
             self.result,
         ]))
-

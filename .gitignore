@@ -6,3 +6,5 @@ README.txt
 *.egg-info
 *.pyc
 *.*~
+*.example
+.spyderworkspace

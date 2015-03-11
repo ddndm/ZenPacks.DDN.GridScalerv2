@@ -34,7 +34,6 @@ class DDNMetricPlugin(PythonDataSourcePlugin):
         self.modname = None
         self._config_key = None  # tuple generated through config_key()
         self._config_params = {}  # dict prepared through param
-        # self.templateId = None # TestMdt, TestOsp
         self.conn_params = {}  # connection options
         self._connection = None  # valid connection
         self.cmd = []  # list of cmds to run over the connection
@@ -198,17 +197,22 @@ class DDNMetricPlugin(PythonDataSourcePlugin):
         """
         conn_params = self.conn_params
         # log.debug("XXXX _connect instance %r, param %s",
-        #           self, str(conn_params))
+        # self, str(conn_params))
 
         options = DDNNetworkLib.SshOptions(conn_params['user'],  # user
                                            conn_params['pass'],  # pass
-                                           conn_params['logintimeout'],  # logincmdtimeout
-                                           conn_params['cmdtimeout'],  # cmdcmdtimeout
+                                           conn_params['logintimeout'],
+                                           # logincmdtimeout
+                                           conn_params['cmdtimeout'],
+                                           # cmdcmdtimeout
                                            conn_params['keypath'],  # keypath
-                                           conn_params['consess'])  # concurrent session
+                                           conn_params[
+                                               'consess'])  # concurrent
+                                               # session
 
         connection = DDNNetworkLib.MySshClient(conn_params['target'],  # target
-                                               conn_params['target'],  # targetIp
+                                               conn_params['target'],
+                                               # targetIp
                                                conn_params['port'],  # port
                                                options=options)
 
@@ -296,7 +300,8 @@ class DDNMetricPlugin(PythonDataSourcePlugin):
         aggregate['events'] = [{
                                    'component': '',
                                    'summary':
-                                       'Generic failure %s' % str(self.conn_params),
+                                       'Generic failure %s' % str(
+                                           self.conn_params),
                                    'eventClass': 'Perf',
                                    'eventKey': 'ExascalerPerf',
                                    'severity': ZenEventClasses.Error,
@@ -312,6 +317,8 @@ class DDNMetricPlugin(PythonDataSourcePlugin):
         You can omit this method if you want the result of either the
         onSuccess or onError method to be used without further processing.
         """
+        self.cmd = []  # oncomplete: Clear the commands list bcoz it leads
+        # error while we run zenpython in background
         return result
 
     def cleanup(self, config):

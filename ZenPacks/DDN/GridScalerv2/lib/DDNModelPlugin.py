@@ -68,6 +68,7 @@ class DDNModelPlugin(PythonPlugin):
         self._connection = None
         self.cmd = []
         self.config = None
+        # self.templateId = None
 
 
     def parseResults(self, resultList):
@@ -104,7 +105,7 @@ class DDNModelPlugin(PythonPlugin):
             Return a deferred list, one deferred for each command
         """
         # Bundle up the list of tasks
-        log.debug("Module : MODELPLUGIN, Message : XXXX _fetchPerf called"\
+        log.debug("Module : MODELPLUGIN, Message : XXXX _fetchPerf called" \
                   " on connection %r", connection)
         deferredCmds = []
         for c in self.cmd:
@@ -119,7 +120,7 @@ class DDNModelPlugin(PythonPlugin):
         """
         Callback called after a successful connect to the remote device.
         """
-        log.debug("Module : MODELPLUGIN, Message : XXX connectCallback with "\
+        log.debug("Module : MODELPLUGIN, Message : XXX connectCallback with " \
                   "connection %r", connection)
         self._connection = connection  # objects of type MySshClient
         self._connection._taskList.add(self)  # all tasks run over a conn
@@ -136,7 +137,7 @@ class DDNModelPlugin(PythonPlugin):
         pref_ip = self._conn_params['target']  # current failed IP
         nw_ips = self._conn_params['targets']  # a list of IPs
         log.debug('Module : MODELPLUGIN, Message : XXXX getNextAddress called"\
-                  " with %s/%s',str(nw_ips), pref_ip)
+        " with %s/%s', str(nw_ips), pref_ip)
         for i, ip in enumerate(nw_ips):
             if ip == pref_ip:
                 i += 1
@@ -155,12 +156,12 @@ class DDNModelPlugin(PythonPlugin):
         """
             Connect with next ip if fails
         """
-        log.warn("Module : MODELPLUGIN, Message : XXXX connectionFailed"\
-        " called for connection %r", msg)
+        log.warn("Module : MODELPLUGIN, Message : XXXX connectionFailed" \
+                 " called for connection %r", msg)
         newtarget = self.getNextAddress()
         if newtarget != self._conn_params['currentTarget']:
             log.warn('Module : MODELPLUGIN, Message : XXXX %s failed.. "\
-            "retrying with %s',self._conn_params['target'], newtarget)
+            "retrying with %s', self._conn_params['target'], newtarget)
             # retry modeling with the chosen target
             self._conn_params['target'] = newtarget
             d = self._internal_defer = maybeDeferred(self._connect)
@@ -177,9 +178,14 @@ class DDNModelPlugin(PythonPlugin):
         Make a new SSH connection object if there isn't one available.
         This doesn't actually connect to the device.
         """
+        # log.debug("Module : MODELPLUGIN, Message : XXXX _connect instance
+        # %r,"\
+        # " param %s",self, str(self._conn_params))
+
         options = DDNNetworkLib.SshOptions(self._conn_params['user'],
                                            self._conn_params['pass'],
-                                           self._conn_params['logincmdtimeout'],
+                                           self._conn_params[
+                                               'logincmdtimeout'],
                                            self._conn_params['cmdtimeout'],
                                            self._conn_params['keypath'],
                                            self._conn_params['consess'])
@@ -197,8 +203,8 @@ class DDNModelPlugin(PythonPlugin):
         """
             Should get called from collect in subclass before finishing.
         """
-        log.debug("Module : MODELPLUGIN, Message : %s: DDN collection for "\
-                      "device", device.id)
+        log.debug("Module : MODELPLUGIN, Message : %s: DDN collection for " \
+                  "device", device.id)
         # prepare the connection
         d = self._internal_defer = maybeDeferred(self._connect)
         d.addCallbacks(self.connectCallback, self.connectionFailed)

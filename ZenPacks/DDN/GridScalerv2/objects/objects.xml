@@ -1,9 +1,7 @@
 <?xml version="1.0"?>
 <objects>
-<!-- ('', 'zport', 'dmd', 'Devices', 'Storage') -->
-<object id='/zport/dmd/Devices/Storage' module='Products.ZenModel.DeviceClass' class='DeviceClass'>
-<object id='DDN' module='Products.ZenModel.DeviceClass' class='DeviceClass'>
-<object id='GridScalerv2' module='Products.ZenModel.DeviceClass' class='DeviceClass'>
+<!-- ('', 'zport', 'dmd', 'Devices', 'Storage', 'DDN', 'GridScalerv2') -->
+<object id='/zport/dmd/Devices/Storage/DDN/GridScalerv2' module='Products.ZenModel.DeviceClass' class='DeviceClass'>
 <property id='zendoc' type='string'>
 GridScaler device with version 2 API
 </property>
@@ -465,7 +463,7 @@ ${here/id}
 3
 </property>
 <property type="string" id="cycletime" mode="w" >
-600
+30
 </property>
 <property type="string" id="plugin_classname" mode="w" >
 ZenPacks.DDN.GridScalerv2.dsplugin.GsFSMetricPlugin
@@ -957,8 +955,6 @@ ZenPacks.DDN.GridScalerv2.dsplugin.GsNsdMetricPlugin
 </tomanycont>
 </object>
 </tomanycont>
-</object>
-</object>
 </object>
 <!-- ('', 'zport', 'dmd', 'Events', 'Perf', 'GridScalerV2') -->
 <object id='/zport/dmd/Events/Perf/GridScalerV2' module='Products.ZenEvents.EventClass' class='EventClass'>
