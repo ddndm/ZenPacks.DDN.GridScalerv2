@@ -100,7 +100,9 @@ class GridScaler_ModelNSD(DDNModelPlugin):
                 errmsgs.update(str(result))
 
         for om in omaps: rm.append(om)
-        devmod = {'id': self.config.id,
+        devmod = {
+                 # 'id': self.config.id,
+                 # should not update id while updating attributes
                   # Update Current target as preferredNSD
                   'preferredNSD': self._conn_params['target'],
                   'nsdServers': nsdServers}
