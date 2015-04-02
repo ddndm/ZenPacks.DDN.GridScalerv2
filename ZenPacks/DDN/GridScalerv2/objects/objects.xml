@@ -28,6 +28,18 @@ ZenPacks.DDN.GridScalerv2.GridScalerV2Device
 <property visible="True" type="string" id="zGSNSDList" >
 10.30.30.1
 </property>
+<property visible="True" type="int" id="zCollectorClientTimeout" >
+60
+</property>
+<property visible="True" type="float" id="zCommandCommandTimeout" >
+60.0
+</property>
+<property visible="True" type="float" id="zCommandLoginTimeout" >
+60.0
+</property>
+<property visible="True" type="float" id="zStatusConnectTimeout" >
+60.0
+</property>
 <tomanycont id='rrdTemplates'>
 <object id='ClientNode' module='Products.ZenModel.RRDTemplate' class='RRDTemplate'>
 <property id='zendoc' type='string'>
